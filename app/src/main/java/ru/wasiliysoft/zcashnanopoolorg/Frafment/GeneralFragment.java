@@ -188,7 +188,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
         Log.d("onLoadFinished id", loader.getId() + "");
 
         if (response == null || !response.isSuccessful()) {
-            Toast.makeText(getActivity(), "Error loading data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
             return;
         }
         switch (loader.getId()) {
@@ -196,7 +196,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
                 NpGeneral.Resp mGeneralResp = (NpGeneral.Resp) response.body();
                 if (!mGeneralResp.getStatus()) {
 //                    TODO Обхекдинить класыы Response (выделить общее во внешний класс) для удаления дулирования кода
-                    Toast.makeText(getActivity(), "Error loading data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mNpGenData = mGeneralResp.getData();
@@ -212,7 +212,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
             case LOADER_ID_NPCALC:
                 NpCalc.Resp mCalcResp = (NpCalc.Resp) response.body();
                 if (!mCalcResp.getStatus()) {
-                    Toast.makeText(getActivity(), "Error loading data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 NpCalc.Data mCalcData = mCalcResp.getData();

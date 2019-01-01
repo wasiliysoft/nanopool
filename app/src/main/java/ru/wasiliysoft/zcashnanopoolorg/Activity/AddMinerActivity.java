@@ -86,10 +86,10 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
                         List<String> params = scanedUrl.getPathSegments();
                         etAddress.setText(params.get(1));
                     } else {
-                        Toast.makeText(this, "Please scan URL address from " + getString(R.string.host), Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.unsupported_url) + getString(R.string.host), Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(this, "Please scan URL address", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.unsupported_url) + getString(R.string.host), Toast.LENGTH_LONG).show();
                 }
                 return;
             }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/minerLabelHint"
-        android:text="My miner" />
+        android:text="@string/default_miner_label" />
 
 
     <EditText
@@ -23,7 +23,7 @@
         android:id="@+id/qrBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scan URL-address in QR-code" />
+        android:text="@string/scan_url_address_in_qr_code" />
 
     <Button
         android:id="@+id/bAddMiner"

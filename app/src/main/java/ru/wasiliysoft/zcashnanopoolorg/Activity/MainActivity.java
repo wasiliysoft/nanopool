@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity
                     });
         }
 
-        menu.add(0, MENU_ADD_MINER, 3, "Add miner").setIcon(R.drawable.ic_add_black_24dp);
-        menu.add(1, MENU_CONTACT, 5, "Contact").setIcon(R.drawable.ic_email_black_24dp);
-        menu.add(1, MENU_SHARE, 6, "Share app").setIcon(R.drawable.ic_share_black_24dp);
+        menu.add(0, MENU_ADD_MINER, 3, getString(R.string.add_miner)).setIcon(R.drawable.ic_add_black_24dp);
+        menu.add(1, MENU_CONTACT, 5, R.string.feedback).setIcon(R.drawable.ic_email_black_24dp);
+        menu.add(1, MENU_SHARE, 6, R.string.share_app).setIcon(R.drawable.ic_share_black_24dp);
     }
 
     /**

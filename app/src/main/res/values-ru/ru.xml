@@ -10,4 +10,6 @@
     <string name="error_loading_data">Ошибка загрузки данных</string>
     <string name="scan_url_address_in_qr_code">Считать URL-адрес с QR-кода</string>
     <string name="default_miner_label">Мой майнер</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="feedback">Обратная связь</string>
 </resources>

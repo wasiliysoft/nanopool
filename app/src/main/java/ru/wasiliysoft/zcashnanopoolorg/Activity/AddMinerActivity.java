@@ -1,6 +1,7 @@
 package ru.wasiliysoft.zcashnanopoolorg.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.List;
+
 import ru.wasiliysoft.zcashnanopoolorg.BuildConfig;
 import ru.wasiliysoft.zcashnanopoolorg.Model.Miners;
 import ru.wasiliysoft.zcashnanopoolorg.R;
@@ -22,16 +25,21 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
     public EditText etAddress;
     private Miners miners;
     private String TAG = "MainActivity2";
+    private Uri data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_miner);
-
         miners = new Miners(getApplicationContext());
 
         etName = findViewById(R.id.minerName);
         etAddress = findViewById(R.id.minerAddress);
+        data = getIntent().getData();
+        if (data != null) {
+            List<String> params = data.getPathSegments();
+            etAddress.setText(params.get(1));
+        }
         ((Button) findViewById(R.id.bAddMiner)).setOnClickListener(this);
         ((Button) findViewById(R.id.qrBtn)).setOnClickListener(this);
     }
@@ -49,7 +57,13 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
                 }
                 miners.add(etName.getText().toString(), etAddress.getText().toString().trim());
                 setResult(RESULT_OK);
+                if (data != null) {
+                    Intent i = new Intent(this, MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
                 finish();
+
                 return;
             case R.id.qrBtn:
                 IntentIntegrator integrator = new IntentIntegrator(this);

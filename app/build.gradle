@@ -33,8 +33,6 @@ android {
     flavorDimensions "default"
     productFlavors {
         zec {
-            resValue "string", "app_name", "\"Nanopool ZCash\""
-            resValue "string", "donations_label", "\"Donate ZCash\""
             buildConfigField "String", "COIN_TICKER", "\"zec\""
             buildConfigField "String", "COIN_NAME", "\"ZCash\""
             buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"zcash:\""
@@ -45,8 +43,6 @@ android {
             applicationIdSuffix ".zec"
         }
         xmr {
-            resValue "string", "app_name", "\"Nanopool Monero\""
-            resValue "string", "donations_label", "\"Donate Monero\""
             buildConfigField "String", "COIN_TICKER", "\"xmr\""
             buildConfigField "String", "COIN_NAME", "\"Monero\""
             buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"monero:\""
@@ -55,8 +51,6 @@ android {
             applicationIdSuffix ".xmr"
         }
         eth {
-            resValue "string", "app_name", "\"Nanopool Ethereum\""
-            resValue "string", "donations_label", "\"Donate Ethereum\""
             buildConfigField "String", "COIN_TICKER", "\"eth\""
             buildConfigField "String", "COIN_NAME", "\"Ethereum\""
             buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"ethereum:\""

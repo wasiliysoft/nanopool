@@ -15,7 +15,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
 
-import ru.wasiliysoft.zcashnanopoolorg.BuildConfig;
 import ru.wasiliysoft.zcashnanopoolorg.Model.Miners;
 import ru.wasiliysoft.zcashnanopoolorg.R;
 
@@ -81,8 +80,17 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
             if (scanResult.getContents() != null) {
                 String re = scanResult.getContents();
                 Log.d(TAG, "Barcode read: " + re);
-                etAddress.setText(re.replace(BuildConfig.REPLACE_WALLET_PREFIX, ""));
-                Toast.makeText(this, re, Toast.LENGTH_LONG).show();
+                Uri scanedUrl = Uri.parse(re);
+                if (scanedUrl != null) {
+                    if (scanedUrl.getHost().equals(getString(R.string.host))) {
+                        List<String> params = scanedUrl.getPathSegments();
+                        etAddress.setText(params.get(1));
+                    } else {
+                        Toast.makeText(this, "Please scan URL address from " + getString(R.string.host), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Please scan URL address", Toast.LENGTH_LONG).show();
+                }
                 return;
             }
         } else {

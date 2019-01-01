@@ -16,8 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.yandex.metrica.YandexMetrica;
-
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -169,7 +167,6 @@ public class MainActivity extends AppCompatActivity
             if (sendIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(sendIntent);
             }
-            YandexMetrica.reportEvent("Share clicked");
         } else if (id == MENU_CONTACT) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setType("text/plain");
@@ -179,7 +176,6 @@ public class MainActivity extends AppCompatActivity
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
-            YandexMetrica.reportEvent("Contact clicked");
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

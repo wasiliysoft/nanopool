@@ -105,14 +105,10 @@ dependencies {
 //    implementation 'com.android.support:multidex:1.0.2'
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
-    implementation 'com.yandex.android:mobmetricalib:2.80'
-    implementation "com.yandex.android:mobmetricapushlib:0.6.1"
-
-
     //retrofit2
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation "com.google.android.gms:play-services-gcm:11.8.0"
+
 }
 repositories {
     mavenCentral()

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Nanopool Ethereum</string>
-    <string name="donations_label">Donate Ethereum</string>
     <string name="host">eth.nanopool.org</string>
 
 </resources>

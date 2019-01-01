@@ -13,14 +13,7 @@
     <string name="minerLabelHint">label</string>
     <string name="minerAddressHint">nanopool account</string>
     <string name="add_miner">ADD MINER</string>
-    <string name="action_donate">Donate</string>
     <string name="contact_email">mailto:wasiliysoft@gmail.com</string>
-    <string name="donation_text">
-        ZEC t1aykD5wvYitqzBX32CjA8z2R4rDixMTKaV
-        \n\nETH 0xba75aefa78e69b564768748d57aa11fa341342fb
-        \n\nLTC LekeTMCfEGEYnuM5uU8hi94vzPp9CTBQ5t
-        \n\nXMR 4BrL51JCc9NGQ71kWhnYoDRffsDZy7m1HUU7MRU4nUMXAHNFBEJhkTZV9HdaL4gfuNBxLPc3BeMkLGaPbF5vWtANQnS2VeuowkAHd6L6ky
-        \n\nYandexMoney 41001180308919
-    </string>
+
 
 </resources>

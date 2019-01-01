@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.yandex.metrica.YandexMetrica;
 
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         menu.add(0, MENU_ADD_MINER, 3, "Add miner").setIcon(R.drawable.ic_add_black_24dp);
-        menu.add(1, MENU_DONATE, 4, "Donate").setIcon(R.drawable.ic_attach_money_black_24dp);
         menu.add(1, MENU_CONTACT, 5, "Contact").setIcon(R.drawable.ic_email_black_24dp);
         menu.add(1, MENU_SHARE, 6, "Share app").setIcon(R.drawable.ic_share_black_24dp);
     }
@@ -162,23 +160,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == MENU_ADD_MINER) {
-            if (App.getMiners().read().size() >= 2) {
-                Toast.makeText(getApplicationContext(), "Sorry, this free version max 2 miners", Toast.LENGTH_LONG).show();
-                YandexMetrica.reportEvent("Add miner up max");
-            } else {
-                showDialogAddMiner();
-            }
-        } else if (id == MENU_DONATE) {
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setType("text/plain");
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, "");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Donate wallets " + getString(R.string.app_name) + " monitoring app");
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.donation_text));
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-            YandexMetrica.reportEvent("Donate clicked");
+            showDialogAddMiner();
         } else if (id == MENU_SHARE) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);

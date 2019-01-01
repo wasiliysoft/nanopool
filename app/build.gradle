@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+//    buildToolsVersion "27.0.3"
+    signingConfigs {
+        config {
+            keyAlias 'zecnanopool'
+            keyPassword 'WJi7tedM94'
+            storeFile file('/home/wasliysoft/StudioProjects/key_store.jks')
+            storePassword '`x<!n1gcwm'
+        }
+    }
+    defaultConfig {
+        applicationId "ru.wasiliysoft.nanopoolorg_free"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 8
+        versionName "1.0:" + versionCode
+//        multiDexEnabled true
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        zec {
+            resValue "string", "app_name", "\"Nanopool ZCash\""
+            resValue "string", "donations_label", "\"Donate ZCash\""
+            buildConfigField "String", "COIN_TICKER", "\"zec\""
+            buildConfigField "String", "COIN_NAME", "\"ZCash\""
+            buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"zcash:\""
+            buildConfigField "String", "TEST_MINER", "\"t1b9Um3KH6xa1bNV8UmtkwSEPXHZZnSoSPN\""
+            buildConfigField "String", "YANDEX_KEY", "\"58266b10-730e-4304-bd29-807e0a55f037\""
+
+//            buildConfigField "String", "TEST_MINER", "\"t1fJuHWrfcWnYMYyP9VAF96vRnvND2NziMG\""
+            applicationIdSuffix ".zec"
+        }
+        xmr {
+            resValue "string", "app_name", "\"Nanopool Monero\""
+            resValue "string", "donations_label", "\"Donate Monero\""
+            buildConfigField "String", "COIN_TICKER", "\"xmr\""
+            buildConfigField "String", "COIN_NAME", "\"Monero\""
+            buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"monero:\""
+            buildConfigField "String", "TEST_MINER", "\"42o3JrXTTZjgXfkpTv1CyY9VatwiYA4D8Mj3YMwtbVSEXdTKAPjn1CmbqSgCmEjZun7CQZcjLvj8FSfseQRJvn7zJ8wmfbc\""
+            buildConfigField "String", "YANDEX_KEY", "\"9a9d3c6f-6491-4312-b5d5-ae0bfefb6ff6\""
+            applicationIdSuffix ".xmr"
+        }
+        eth {
+            resValue "string", "app_name", "\"Nanopool Ethereum\""
+            resValue "string", "donations_label", "\"Donate Ethereum\""
+            buildConfigField "String", "COIN_TICKER", "\"eth\""
+            buildConfigField "String", "COIN_NAME", "\"Ethereum\""
+            buildConfigField "String", "REPLACE_WALLET_PREFIX", "\"ethereum:\""
+            buildConfigField "String", "TEST_MINER", "\"0x66fba1130f624680e4164fd3aa998b569ff01b60\""
+            buildConfigField "String", "YANDEX_KEY", "\"62639eb4-5e29-4276-b023-e34964a95739\""
+            applicationIdSuffix ".eth"
+        }
+//        etc {
+//            resValue "string", "app_name", "\"Nanopool Ethereum Classic\""
+//            resValue "string", "donations_label", "\"Donate ZCash\""
+//            buildConfigField "String", "COIN_TICKER", "\"etc\""
+//            buildConfigField "String", "COIN_NAME", "\"Ethereum Classic\""
+//            buildConfigField "String", "TEST_MINER", "\"0x6fa8e33b0ea2f138a98edcbae91d12db51ac07a4\""
+//            applicationIdSuffix ".etc"
+//        }
+//        sia {
+//            resValue  "string", "app_name", "\"Nanopool SiaCoin\""
+//            resValue  "string", "donations_label", "\"Donate ZCash\""
+//            buildConfigField "String", "COIN_TICKER", "\"sia\""
+//            buildConfigField "String", "COIN_NAME", "\"SiaCoin\""
+//            buildConfigField "String", "TEST_MINER", "\"85978757426dac472425e107b7ae83bd5433a7ae691022cc3bcd33bc211cfe3c3b49ab9969cb\""
+//            applicationIdSuffix ".sia"
+//        }
+
+//        pasc {
+//            resValue  "string", "app_name", "\"Nanopool Pascal\""
+//            resValue  "string", "donations_label", "\"Donate ZCash\""
+//            buildConfigField "String", "COIN_TICKER", "\"pasc\""
+//            buildConfigField "String", "COIN_NAME", "\"Pascal\""
+//            buildConfigField "String", "TEST_MINER", "\"273663.05c7d951bcaa7c20\""
+//            applicationIdSuffix ".pasc"
+//        }
+//        etn {
+//            resValue  "string", "app_name", "\"Nanopool Electroneum\""
+//            resValue  "string", "donations_label", "\"Donate Electroneum\""
+//            buildConfigField "String", "COIN_TICKER", "\"etn\""
+//            buildConfigField "String", "COIN_NAME", "\"Electroneum\""
+//            buildConfigField "String", "TEST_MINER", "\"etnjzKFU6ogESSKRZZbdqraPdcKVxEC17Cm1Xvbyy76PARQMmgrgceH4krAH6xmjKwJ3HtSAKuyFm1BBWYqtchtq9tBap8Qr4M.2ad24f8484682c1cce7bb5915265abdb685c2a9210786f3c8a3c83704f051c4e\""
+//            applicationIdSuffix ".etn"
+//        }
+    }
+}
+
+dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+//    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+//    implementation 'com.android.support:support-v4:27.0.2'
+//    implementation 'com.android.support:appcompat-v7:27.0.2'
+    // support
+    implementation 'com.android.support:design:27.0.2'
+//    implementation 'com.android.support:multidex:1.0.2'
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation 'com.yandex.android:mobmetricalib:2.80'
+    implementation "com.yandex.android:mobmetricapushlib:0.6.1"
+
+
+    //retrofit2
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation "com.google.android.gms:play-services-gcm:11.8.0"
+}
+repositories {
+    mavenCentral()
+}
+apply plugin: 'com.google.gms.google-services'

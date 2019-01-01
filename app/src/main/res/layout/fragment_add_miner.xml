@@ -1,47 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/minerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="My miner"
-        android:hint="@string/minerLabelHint" />
+        android:hint="@string/minerLabelHint"
+        android:text="My miner" />
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/minerAddress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:hint="@string/minerAddressHint" />
 
-        <EditText
-            android:id="@+id/minerAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
 
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:hint="@string/minerAddressHint" />
-
-        <Button
-            android:id="@+id/qrBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-
-            android:text="QR" />
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/qrBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan URL-address in QR-code" />
 
     <Button
         android:id="@+id/bAddMiner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:text="@string/add_miner" />
 </LinearLayout>

@@ -11,7 +11,7 @@
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="minerLabelHint">label</string>
-    <string name="minerAddressHint">address only</string>
+    <string name="minerAddressHint">nanopool account</string>
     <string name="add_miner">ADD MINER</string>
     <string name="action_donate">Donate</string>
     <string name="contact_email">mailto:wasiliysoft@gmail.com</string>

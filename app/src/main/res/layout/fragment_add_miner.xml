@@ -1,45 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/minerName"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/minerLabelHint"
-        android:text="@string/default_miner_label" />
+        android:orientation="vertical"
+        android:padding="8dp">
 
 
-    <EditText
-        android:id="@+id/minerUrlAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/minerUrlAddressHint" />
+        <EditText
+            android:id="@+id/minerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/minerLabelHint" />
 
 
-    <TextView
-        android:id="@+id/accountTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tickerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+            <EditText
+                android:id="@+id/minerUrlAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/minerUrlAddressHint" />
 
-    <Button
-        android:id="@+id/qrBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/scan_url_address_in_qr_code" />
+            <Button
+                android:id="@+id/qrBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="4dp"
+                android:text="@string/scan_url_address_in_qr_code" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/bAddMiner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_miner" />
-</LinearLayout>
+        <Button
+            android:id="@+id/bAddMiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_miner" />
+    </LinearLayout>
+</ScrollView>

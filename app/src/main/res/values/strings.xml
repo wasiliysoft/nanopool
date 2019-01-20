@@ -6,16 +6,17 @@
     <string name="action_delete_miner">Delete miner</string>
     <string name="ok" translatable="false">OK</string>
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
-    <string name="minerLabelHint">label</string>
-    <string name="minerUrlAddressHint">url your nanopool account</string>
+    <string name="minerLabelHint">Enter miner label</string>
+    <string name="toast_enter_label">Enter miner label</string>
+    <string name="toast_enter_url">Enter correct nanopool account URL</string>
     <string name="add_miner">ADD MINER</string>
     <string name="contact_email" translatable="false">mailto:wasiliysoft@gmail.com</string>
     <string name="unsupported_url">Please scan URL address from nanopool.org</string>
     <string name="error_loading_data">Error loading data</string>
-    <string name="scan_url_address_in_qr_code">Scan URL-address in QR-code</string>
-    <string name="default_miner_label">My miner</string>
     <string name="share_app">Share app</string>
     <string name="feedback">Contact</string>
+    <string name="minerUrlAddressHint">Entert or scan URL to  your nanopool account</string>
+    <string name="scan_url_address_in_qr_code" translatable="false">QR</string>
 
 
 </resources>

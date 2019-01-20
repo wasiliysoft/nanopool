@@ -21,7 +21,8 @@ class AddMinerActivity : AppCompatActivity(), View.OnClickListener {
 
     private var miners: Miners? = null
     private val TAG = "MainActivity2"
-
+    private var mTicker: String? = null
+    private var mAccount: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_add_miner)
@@ -48,19 +49,19 @@ class AddMinerActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bAddMiner -> {
 
                 if (minerName.text.toString().trim().isEmpty()) {
+                    Toast.makeText(this, R.string.toast_enter_label, Toast.LENGTH_LONG).show()
                     return
                 }
-                if (tickerTextView.text.toString().trim().isEmpty()) {
+                if (mAccount == null || mTicker == null) {
+                    Toast.makeText(this, R.string.toast_enter_url, Toast.LENGTH_LONG).show()
                     return
                 }
-                if (accountTextView.text.toString().trim().isEmpty()) {
-                    return
-                }
-                val m = Miner(minerName.text.toString().trim(), tickerTextView.text.toString().trim(), accountTextView.text.toString().trim())
+
+                val m = Miner(minerName.text.toString().trim(), mTicker!!, mAccount!!)
                 miners!!.add(m)
 
                 val i = Intent(this, MainActivity::class.java)
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //todo надо уточнить
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
                 return
             }
@@ -74,6 +75,8 @@ class AddMinerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun updateMinerPrefUi(url: String) {
+        mTicker = null
+        mAccount = null
         val uri = Uri.parse(url)
         val host = uri.host
         if (host != null) {
@@ -87,8 +90,9 @@ class AddMinerActivity : AppCompatActivity(), View.OnClickListener {
                 if (domain.equals("nanopool")) {
                     if (uri.pathSegments.size >= 2) {
                         val account = uri.pathSegments[1]
-                        tickerTextView!!.text = ticker
-                        accountTextView!!.text = account
+                        mTicker = ticker
+                        mAccount = account
+                        return
                     }
                 }
             }

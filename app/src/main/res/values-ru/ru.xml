@@ -6,7 +6,7 @@
     <string name="minerUrlAddressHint">URL вашего аккаунта nanopool</string>
     <string name="add_miner">Добавить майнер</string>
     <string name="barcode_error">"Ошибка чтения QR-кода: %1$s"</string>
-    <string name="unsupported_url">Пожалуйста отсканируйте URL адрес аккаунта для </string>
+    <string name="unsupported_url">Пожалуйста отсканируйте URL адрес аккаунта для nanopool.org</string>
     <string name="error_loading_data">Ошибка загрузки данных</string>
     <string name="scan_url_address_in_qr_code">Считать URL-адрес с QR-кода</string>
     <string name="default_miner_label">Мой майнер</string>

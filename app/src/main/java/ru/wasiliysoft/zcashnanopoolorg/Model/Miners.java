@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.TreeMap;
+import java.util.ArrayList;
 
 /**
  * Created by WasiliySoft on 02.12.2017.
@@ -17,7 +16,7 @@ import java.util.TreeMap;
 public class Miners {
     private SharedPreferences sp;
     private static final String PREF_MINERS = "PREF_MINERS";
-    private static TreeMap<String, Miner> sMiners;
+    private static ArrayList<Miner> sMiners;
 
 
     public Miners(Context c) {
@@ -25,16 +24,16 @@ public class Miners {
 //        sp.edit().clear().apply();
         String s = sp.getString(PREF_MINERS, "");
         if (s.isEmpty()) {
-            sMiners = new TreeMap<>();
+            sMiners = new ArrayList<>();
         } else {
-            sMiners = new Gson().fromJson(s, (new TypeToken<TreeMap<String, Miner>>() {
+            sMiners = new Gson().fromJson(s, (new TypeToken<ArrayList<Miner>>() {
             }.getType()));
         }
     }
 
 
     public void add(Miner miner) {
-        sMiners.put(miner.getName(), miner);
+        sMiners.add(miner);
         save();
     }
 
@@ -47,7 +46,7 @@ public class Miners {
         sp.edit().putString("PREF_MINERS", new Gson().toJson(sMiners)).apply();
     }
 
-    public TreeMap<String, Miner> read() {
+    public ArrayList<Miner> read() {
         return sMiners;
     }
 

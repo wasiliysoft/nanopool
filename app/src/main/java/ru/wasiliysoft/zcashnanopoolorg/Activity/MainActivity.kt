@@ -5,14 +5,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import kotlinx.android.synthetic.main.app_bar_main.*
 import ru.wasiliysoft.zcashnanopoolorg.App
 import ru.wasiliysoft.zcashnanopoolorg.Frafment.GeneralFragment
 import ru.wasiliysoft.zcashnanopoolorg.R
@@ -24,6 +28,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     internal val MENU_SHARE = 3
     internal val MENU_DONATE = 4
     internal val MENU_CONTACT = 5
+
+    private lateinit var mDemoCollectionPagerAdapter: DemoCollectionPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +58,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             showDialogAddMiner()
         } else {
             // показываем данные первого майнера в списке
-            val m = App.getMiners().read().firstEntry().value
-            val arg = Bundle()
-            arg.putSerializable(BUNDLE_MINER, m)
-            ActivateGeneralFragment(arg)
+//            val m = App.getMiners().read().firstEntry().value
+//            val arg = Bundle()
+//            arg.putSerializable(BUNDLE_MINER, m)
+//            ActivateGeneralFragment(arg)
+
+            mDemoCollectionPagerAdapter = DemoCollectionPagerAdapter(supportFragmentManager)
+
+            pager.setOffscreenPageLimit(1)
+            pager.adapter = mDemoCollectionPagerAdapter
+            pager.setOnPageChangeListener(
+                    object : ViewPager.SimpleOnPageChangeListener() {
+                        override fun onPageSelected(position: Int) {
+                            // When swiping between pages, select the
+                            // corresponding tab.
+                            supportActionBar!!.title = App.getMiners().read()[position].name
+                            supportActionBar!!.subtitle = App.getMiners().read()[position].ticker
+                        }
+                    })
+        }
+    }
+
+    class DemoCollectionPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+        override fun getCount(): Int = App.getMiners().read().size
+
+        override fun getItem(i: Int): Fragment {
+            val m = App.getMiners().read()[i]
+            return GeneralFragment.newInstance(m)
         }
     }
 
@@ -78,31 +108,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Наполнение бокового меню
      */
     internal fun settingNavigationView(menu: Menu) {
-        for ((key, value) in App.getMiners().read()) {
-            menu.add(0, MENU_SELECT_MINER, 1, value.name).setIcon(R.drawable.ic_poll_black_24dp)
-                    .setOnMenuItemClickListener {
-                        val arg = Bundle()
-                        arg.putSerializable(BUNDLE_MINER, value)
-                        ActivateGeneralFragment(arg)
-                        false
-                    }
-        }
+//        for ((key, value) in App.getMiners().read()) {
+//            menu.add(0, MENU_SELECT_MINER, 1, value.name).setIcon(R.drawable.ic_poll_black_24dp)
+//                    .setOnMenuItemClickListener {
+//                        val arg = Bundle()
+//                        arg.putSerializable(BUNDLE_MINER, value)
+//                        ActivateGeneralFragment(arg)
+//                        false
+//                    }
+//        }
 
         menu.add(0, MENU_ADD_MINER, 3, getString(R.string.add_miner)).setIcon(R.drawable.ic_add_black_24dp)
         menu.add(1, MENU_CONTACT, 5, R.string.feedback).setIcon(R.drawable.ic_email_black_24dp)
         menu.add(1, MENU_SHARE, 6, R.string.share_app).setIcon(R.drawable.ic_share_black_24dp)
     }
 
-    /**
-     * Добавлет фрагемент в контейнер
-     */
-    internal fun ActivateGeneralFragment(arg: Bundle) {
-        val f = GeneralFragment()
-        f.arguments = arg
-        fm!!.beginTransaction()
-                .replace(R.id.fragmentContainer, f)
-                .commit()
-    }
+//    /**
+//     * Добавлет фрагемент в контейнер
+//     */
+//    internal fun ActivateGeneralFragment(arg: Bundle) {
+//        val f = GeneralFragment()
+//        f.arguments = arg
+//        fm!!.beginTransaction()
+//                .replace(R.id.fragmentContainer, f)
+//                .commit()
+//    }
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -159,7 +189,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
 
         private val REQUEST_CODE_ADD_MINER = 1
-        val BUNDLE_MINER = "BUNDLE_MINER"
+
     }
 
 }

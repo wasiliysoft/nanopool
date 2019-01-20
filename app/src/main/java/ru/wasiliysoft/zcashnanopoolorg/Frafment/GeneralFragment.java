@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Response;
-import ru.wasiliysoft.zcashnanopoolorg.Activity.MainActivity;
 import ru.wasiliysoft.zcashnanopoolorg.App;
 import ru.wasiliysoft.zcashnanopoolorg.Model.Miner;
 import ru.wasiliysoft.zcashnanopoolorg.Model.NpCalc;
@@ -31,7 +30,7 @@ import ru.wasiliysoft.zcashnanopoolorg.NpLoader;
 import ru.wasiliysoft.zcashnanopoolorg.R;
 
 public class GeneralFragment extends Fragment implements LoaderManager.LoaderCallbacks<Response> {
-
+    public static String BUNDLE_MINER = "BUNDLE_MINER";
     private static final int LOADER_ID_NPCALC = 1;
     private static final int LOADER_ID_NPGENERAL = 2;
     private TextView tvCurH;
@@ -46,9 +45,17 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
     private LoaderManager lm;
     private Miner mMiner;
 
+    public static GeneralFragment newInstance(Miner m) {
+        Bundle args = new Bundle();
+        args.putSerializable(GeneralFragment.BUNDLE_MINER, m);
+        GeneralFragment f = new GeneralFragment();
+        f.setArguments(args);
+        return f;
+    }
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMiner = (Miner) getArguments().getSerializable(MainActivity.Companion.getBUNDLE_MINER());
+        mMiner = (Miner) getArguments().getSerializable(BUNDLE_MINER);
         // Инициализация загрузчика
         lm = getLoaderManager();
         lm.initLoader(LOADER_ID_NPGENERAL, null, this);

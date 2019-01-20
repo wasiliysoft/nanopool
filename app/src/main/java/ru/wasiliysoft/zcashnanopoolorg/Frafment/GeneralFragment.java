@@ -1,11 +1,12 @@
 package ru.wasiliysoft.zcashnanopoolorg.Frafment;
 
-import android.app.Fragment;
-import android.app.LoaderManager;
+
 import android.content.Context;
-import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMiner = (Miner) getArguments().getSerializable(MainActivity.BUNDLE_MINER);
+        mMiner = (Miner) getArguments().getSerializable(MainActivity.Companion.getBUNDLE_MINER());
         // Инициализация загрузчика
         lm = getLoaderManager();
         lm.initLoader(LOADER_ID_NPGENERAL, null, this);

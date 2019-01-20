@@ -13,11 +13,23 @@
 
 
     <EditText
-        android:id="@+id/minerAddress"
+        android:id="@+id/minerUrlAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/minerAddressHint" />
+        android:hint="@string/minerUrlAddressHint" />
 
+
+    <TextView
+        android:id="@+id/accountTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tickerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
     <Button
         android:id="@+id/qrBtn"

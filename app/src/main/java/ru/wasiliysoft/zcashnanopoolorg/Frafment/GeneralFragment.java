@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.util.List;
 import retrofit2.Response;
 import ru.wasiliysoft.zcashnanopoolorg.Activity.MainActivity;
 import ru.wasiliysoft.zcashnanopoolorg.App;
+import ru.wasiliysoft.zcashnanopoolorg.Model.Miner;
 import ru.wasiliysoft.zcashnanopoolorg.Model.NpCalc;
 import ru.wasiliysoft.zcashnanopoolorg.Model.NpGeneral;
 import ru.wasiliysoft.zcashnanopoolorg.NpLoader;
@@ -41,11 +43,11 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
     private TableLayout tlAVGHashRate;
     private static NpGeneral.Data mNpGenData;
     private LoaderManager lm;
-    private String mAddress;
+    private Miner mMiner;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAddress = getArguments().getString(MainActivity.BUNDLE_MINER_ADDRESS);
+        mMiner = (Miner) getArguments().getSerializable(MainActivity.BUNDLE_MINER);
         // Инициализация загрузчика
         lm = getLoaderManager();
         lm.initLoader(LOADER_ID_NPGENERAL, null, this);
@@ -63,6 +65,9 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
+        getActivity().setTitle(mMiner.getName());
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(mMiner.getTicker());
         View v = inflater.inflate(R.layout.fragment_general, parent, false);
 
         tvCurH = v.findViewById(R.id.tvCurH);
@@ -233,26 +238,26 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
         Log.d("onCreateLoader id", i + "");
         switch (i) {
             case LOADER_ID_NPGENERAL:
-                return new GeneralLoader(getActivity(), mAddress);
+                return new GeneralLoader(getActivity(), mMiner);
             case LOADER_ID_NPCALC:
                 if (mNpGenData != null) {
-                    return new CalcLoader(getActivity(), mNpGenData.getAvgHashrate().getH6unRound());
+                    return new CalcLoader(getActivity(), mMiner, mNpGenData.getAvgHashrate().getH6unRound());
                 }
         }
         return null;
     }
 
     static class GeneralLoader extends NpLoader {
-        String user;
+        Miner miner;
 
-        GeneralLoader(Context context, String user) {
+        GeneralLoader(Context context, Miner miner) {
             super(context);
-            this.user = user;
+            this.miner = miner;
         }
 
         @Override
         protected Response LoadData() throws IOException {
-            Response mResp = App.getApi().getGeneral(user).execute();
+            Response mResp = App.getApi().getGeneral(miner.getTicker(), miner.getAccount()).execute();
             if (mResp.isSuccessful()) {
                 return mResp;
             } else {
@@ -264,15 +269,17 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     static class CalcLoader extends NpLoader {
         String hashrate;
+        Miner miner;
 
-        CalcLoader(Context context, String hashrate) {
+        CalcLoader(Context context, Miner miner, String hashrate) {
             super(context);
             this.hashrate = hashrate;
+            this.miner = miner;
         }
 
         @Override
         protected Response LoadData() throws IOException {
-            Response mResp = App.getApi().getCalcCoin(hashrate).execute();
+            Response mResp = App.getApi().getCalcCoin(miner.getTicker(), hashrate).execute();
             if (mResp.isSuccessful()) {
                 return mResp;
             } else {

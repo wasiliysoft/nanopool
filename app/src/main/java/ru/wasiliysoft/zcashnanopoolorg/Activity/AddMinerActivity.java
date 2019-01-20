@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -15,6 +16,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
 
+import ru.wasiliysoft.zcashnanopoolorg.Model.Miner;
 import ru.wasiliysoft.zcashnanopoolorg.Model.Miners;
 import ru.wasiliysoft.zcashnanopoolorg.R;
 
@@ -25,6 +27,8 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
     private Miners miners;
     private String TAG = "MainActivity2";
     private Uri data;
+    private TextView tvAccount;
+    private TextView tvTicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,9 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
         miners = new Miners(getApplicationContext());
 
         etName = findViewById(R.id.minerName);
-        etAddress = findViewById(R.id.minerAddress);
+        etAddress = findViewById(R.id.minerUrlAddress);
+        tvAccount = findViewById(R.id.accountTextView);
+        tvTicker = findViewById(R.id.tickerTextView);
         data = getIntent().getData();
         if (data != null) {
             List<String> params = data.getPathSegments();
@@ -48,13 +54,17 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.bAddMiner:
 
-                if (etName.getText().toString().isEmpty()) {
+                if (etName.getText().toString().trim().isEmpty()) {
                     return;
                 }
-                if (etAddress.getText().toString().trim().isEmpty()) {
+                if (tvTicker.getText().toString().trim().isEmpty()) {
                     return;
                 }
-                miners.add(etName.getText().toString(), etAddress.getText().toString().trim());
+                if (tvAccount.getText().toString().trim().isEmpty()) {
+                    return;
+                }
+                Miner m = new Miner(etName.getText().toString().trim(), tvTicker.getText().toString().trim(), tvAccount.getText().toString().trim());
+                miners.add(m);
                 setResult(RESULT_OK);
                 if (data != null) {
                     Intent i = new Intent(this, MainActivity.class);
@@ -82,9 +92,20 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, "Barcode read: " + re);
                 Uri scanedUrl = Uri.parse(re);
                 if (scanedUrl != null) {
-                    if (scanedUrl.getHost().equals(getString(R.string.host))) {
-                        List<String> params = scanedUrl.getPathSegments();
-                        etAddress.setText(params.get(1));
+                    String host = scanedUrl.getHost();
+                    String domain = host.split("\\.")[1];
+                    Log.d(TAG, host);
+
+                    Log.d(TAG, domain);
+                    if (domain.equals("nanopool")) {
+                        etAddress.setText(scanedUrl.toString());
+                        String ticker = host.split("\\.")[0];
+                        Log.d(TAG, ticker);
+                        String account = scanedUrl.getPathSegments().get(1);
+                        tvTicker.setText(ticker);
+                        tvAccount.setText(account);
+
+
                     } else {
                         Toast.makeText(this, getString(R.string.unsupported_url) + getString(R.string.host), Toast.LENGTH_LONG).show();
                     }

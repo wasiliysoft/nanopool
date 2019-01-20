@@ -16,12 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Map;
 import java.util.TreeMap;
 
 import ru.wasiliysoft.zcashnanopoolorg.App;
 import ru.wasiliysoft.zcashnanopoolorg.BuildConfig;
 import ru.wasiliysoft.zcashnanopoolorg.Frafment.GeneralFragment;
+import ru.wasiliysoft.zcashnanopoolorg.Model.Miner;
 import ru.wasiliysoft.zcashnanopoolorg.R;
 
 public class MainActivity extends AppCompatActivity
@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity
     final int MENU_SHARE = 3;
     final int MENU_DONATE = 4;
     final int MENU_CONTACT = 5;
-    public static final String BUNDLE_MINER_ADDRESS = "BUNDLE_MINER_ADDRESS";
-    public static final String BUNDLE_MINER_NAME = "BUNDLE_MINER_NAME";
+    public static final String BUNDLE_MINER = "BUNDLE_MINER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +54,19 @@ public class MainActivity extends AppCompatActivity
         settingNavigationView(navigationView.getMenu());
 
         fm = getFragmentManager();
-        if (BuildConfig.DEBUG) {
-//            App.getMiners().add("TestMiner", "t1b9Um3KH6xa1bNV8UmtkwSEPXHZZnSoSPN");
-            App.getMiners().add("Test " + BuildConfig.COIN_NAME + " miner", BuildConfig.TEST_MINER);
-        }
+//        if (BuildConfig.DEBUG) {
+//            Miner m = new Miner("Test XMR", "xmr", "0x66fba1130f624680e4164fd3aa998b569ff01b60");
+//            App.getMiners().add(m);
+//        }
         // проверка списка майнеров
         if (App.getMiners().read().size() == 0) {
             // майнеров нет
             showDialogAddMiner();
         } else {
             // показываем данные первого майнера в списке
-            Map.Entry<String, String> miner = App.getMiners().read().firstEntry();
+            Miner m = App.getMiners().read().firstEntry().getValue();
             Bundle arg = new Bundle();
-            arg.putString(BUNDLE_MINER_NAME, miner.getKey());
-            arg.putString(BUNDLE_MINER_ADDRESS, miner.getValue());
+            arg.putSerializable(BUNDLE_MINER, m);
             ActivateGeneralFragment(arg);
         }
     }
@@ -94,14 +92,13 @@ public class MainActivity extends AppCompatActivity
      * Наполнение бокового меню
      */
     void settingNavigationView(Menu menu) {
-        for (final TreeMap.Entry<String, String> entry : App.getMiners().read().entrySet()) {
+        for (final TreeMap.Entry<String, Miner> entry : App.getMiners().read().entrySet()) {
             menu.add(0, MENU_SELECT_MINER, 1, entry.getKey()).setIcon(R.drawable.ic_poll_black_24dp)
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             Bundle arg = new Bundle();
-                            arg.putString(BUNDLE_MINER_NAME, entry.getKey());
-                            arg.putString(BUNDLE_MINER_ADDRESS, entry.getValue());
+                            arg.putSerializable(BUNDLE_MINER, entry.getValue());
                             ActivateGeneralFragment(arg);
                             return false;
                         }
@@ -117,7 +114,6 @@ public class MainActivity extends AppCompatActivity
      * Добавлет фрагемент в контейнер
      */
     void ActivateGeneralFragment(Bundle arg) {
-        setTitle(arg.getString(BUNDLE_MINER_NAME));
         Fragment f = new GeneralFragment();
         f.setArguments(arg);
         fm.beginTransaction()

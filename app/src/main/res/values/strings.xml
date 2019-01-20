@@ -7,7 +7,7 @@
     <string name="ok" translatable="false">OK</string>
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
     <string name="minerLabelHint">label</string>
-    <string name="minerAddressHint">nanopool account</string>
+    <string name="minerUrlAddressHint">url your nanopool account</string>
     <string name="add_miner">ADD MINER</string>
     <string name="contact_email" translatable="false">mailto:wasiliysoft@gmail.com</string>
     <string name="unsupported_url">Please scan URL address from </string>

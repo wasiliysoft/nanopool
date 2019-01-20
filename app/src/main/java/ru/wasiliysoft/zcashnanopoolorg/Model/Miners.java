@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.TreeMap;
@@ -16,23 +17,24 @@ import java.util.TreeMap;
 public class Miners {
     private SharedPreferences sp;
     private static final String PREF_MINERS = "PREF_MINERS";
-    private static TreeMap<String, String> sMiners;
+    private static TreeMap<String, Miner> sMiners;
 
 
     public Miners(Context c) {
-        sp = c.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
+        sp = c.getSharedPreferences("prefs", Context.MODE_PRIVATE);
 //        sp.edit().clear().apply();
         String s = sp.getString(PREF_MINERS, "");
         if (s.isEmpty()) {
             sMiners = new TreeMap<>();
         } else {
-            sMiners = new Gson().fromJson(s, (Type) TreeMap.class);
+            sMiners = new Gson().fromJson(s, (new TypeToken<TreeMap<String, Miner>>() {
+            }.getType()));
         }
     }
 
 
-    public void add(String name, String addr) {
-        sMiners.put(name, addr);
+    public void add(Miner miner) {
+        sMiners.put(miner.getName(), miner);
         save();
     }
 
@@ -45,7 +47,7 @@ public class Miners {
         sp.edit().putString("PREF_MINERS", new Gson().toJson(sMiners)).apply();
     }
 
-    public TreeMap<String, String> read() {
+    public TreeMap<String, Miner> read() {
         return sMiners;
     }
 

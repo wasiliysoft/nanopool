@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_delete_miner) {
-            App.getMiners().delete(title.toString())
+            App.getMiners().delete(pager.currentItem)
             finish()
             startActivity(Intent(this, MainActivity::class.java))
             return true

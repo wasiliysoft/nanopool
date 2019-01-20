@@ -37,8 +37,8 @@ public class Miners {
         save();
     }
 
-    public void delete(String name) {
-        sMiners.remove(name);
+    public void delete(int i) {
+        sMiners.remove(i);
         save();
     }
 

@@ -18,10 +18,8 @@ public class Miners {
     private static final String PREF_MINERS = "PREF_MINERS";
     private static ArrayList<Miner> sMiners;
 
-
     public Miners(Context c) {
-        sp = c.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//        sp.edit().clear().apply();
+        sp = c.getSharedPreferences("miners", Context.MODE_PRIVATE);
         String s = sp.getString(PREF_MINERS, "");
         if (s.isEmpty()) {
             sMiners = new ArrayList<>();
@@ -43,7 +41,7 @@ public class Miners {
     }
 
     private void save() {
-        sp.edit().putString("PREF_MINERS", new Gson().toJson(sMiners)).apply();
+        sp.edit().putString(PREF_MINERS, new Gson().toJson(sMiners)).apply();
     }
 
     public ArrayList<Miner> read() {

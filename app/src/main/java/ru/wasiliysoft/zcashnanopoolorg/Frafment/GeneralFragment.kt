@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.work.State
 import androidx.work.WorkManager
 import androidx.work.WorkStatus
@@ -140,8 +139,11 @@ class GeneralFragment : Fragment() {
         var wCount = mListWorkers.size - 1
         val workersLimit = 20
         if (wCount > workersLimit) {
-            Toast.makeText(activity, "Sorry, max $workersLimit workers showing", Toast.LENGTH_LONG).show()
+            limitWorkerNotify.text = "Sorry, max $workersLimit workers showing"
+            limitWorkerNotify.visibility = View.VISIBLE
             wCount = workersLimit - 1
+        } else {
+            limitWorkerNotify.visibility = View.GONE
         }
         if (wCount != 0) {
             var w: NpGeneral.Worker

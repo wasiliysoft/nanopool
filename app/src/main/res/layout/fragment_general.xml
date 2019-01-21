@@ -38,10 +38,10 @@
 
                     <TextView
                         android:id="@+id/tvBalance"
-                        android:textStyle="bold"
                         style="@style/MediumText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -58,9 +58,9 @@
                     <TextView
                         android:id="@+id/tvUnconfirmedBalance"
                         style="@style/MediumText"
-                        android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
@@ -88,9 +88,9 @@
                     <TextView
                         android:id="@+id/tvCurH"
                         style="@style/MediumText"
-                        android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
@@ -148,6 +148,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/limitWorkerNotify"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

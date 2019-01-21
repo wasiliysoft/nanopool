@@ -6,35 +6,14 @@ import com.google.gson.annotations.SerializedName;
 
 import static ru.wasiliysoft.zcashnanopoolorg.Helper.getRoundEarnings;
 
-public class NpCalc {
-    public static class Resp {
+public class NpCalc extends NpGeneral {
 
-        @SerializedName("status")
-        @Expose
-        private Boolean status;
-        @SerializedName("data")
-        @Expose
+    public class Resp {
         private Data data;
-        @SerializedName("error")
-        @Expose
-        private String error;
-
-        public String getError() {
-            return error;
-        }
-
-        public Boolean getStatus() {
-            return status;
-        }
 
         public Data getData() {
             return data;
         }
-
-        public void setData(Data data) {
-            this.data = data;
-        }
-
     }
 
     public class Data {

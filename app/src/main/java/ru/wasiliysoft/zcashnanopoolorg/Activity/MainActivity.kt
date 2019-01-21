@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // показываем данные первого майнера в списке
 //            val m = App.getMiners().read().firstEntry().value
 //            val arg = Bundle()
-//            arg.putSerializable(BUNDLE_MINER, m)
+//            arg.putSerializable(BUNDLE_MINER_ID, m)
 //            ActivateGeneralFragment(arg)
 
             mDemoCollectionPagerAdapter = DemoCollectionPagerAdapter(supportFragmentManager)
@@ -84,8 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         override fun getCount(): Int = App.getMiners().read().size
 
         override fun getItem(i: Int): Fragment {
-            val m = App.getMiners().read()[i]
-            return GeneralFragment.newInstance(m)
+            return GeneralFragment.newInstance(i)
         }
     }
 
@@ -112,7 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            menu.add(0, MENU_SELECT_MINER, 1, value.name).setIcon(R.drawable.ic_poll_black_24dp)
 //                    .setOnMenuItemClickListener {
 //                        val arg = Bundle()
-//                        arg.putSerializable(BUNDLE_MINER, value)
+//                        arg.putSerializable(BUNDLE_MINER_ID, value)
 //                        ActivateGeneralFragment(arg)
 //                        false
 //                    }

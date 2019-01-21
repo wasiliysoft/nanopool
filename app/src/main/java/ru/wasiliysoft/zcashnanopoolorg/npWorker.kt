@@ -6,7 +6,6 @@ package ru.wasiliysoft.zcashnanopoolorg
 import android.content.Context
 import android.util.Log
 import androidx.work.*
-import ru.wasiliysoft.zcashnanopoolorg.Model.NpDataUnion
 
 
 class npWorker(ctx: Context, param: WorkerParameters) : Worker(ctx, param) {
@@ -23,14 +22,9 @@ class npWorker(ctx: Context, param: WorkerParameters) : Worker(ctx, param) {
                 Log.e(TAG, "loading: FAILURE")
                 return ListenableWorker.Result.FAILURE
             }
-
+            miner.gen = generalData.body().data
             val calcData = App.getApi().getCalcCoin(ticker, generalData.body().data.avgHashrate.h6unRound).execute()
-            if (!calcData.isSuccessful || calcData.body().data == null) {
-                Log.e(TAG, "loading: FAILURE")
-                return ListenableWorker.Result.FAILURE
-            }
-
-            miner.data = NpDataUnion(generalData.body().data, calcData.body().data)
+            miner.calc = calcData.body().data
             App.getMiners().read()[minerId] = miner
 
             val data = Data.Builder().putInt(INPUT_MINER_ID, minerId).build()

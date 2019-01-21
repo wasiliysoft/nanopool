@@ -46,8 +46,11 @@ class GeneralFragment : Fragment() {
                         swiperefresh.isRefreshing = false
                         mMiner = App.getMiners().read()[minerId]
 
-                        if (mMiner!!.data != null) {
-                            settingBalances(mMiner!!.data!!.general)
+                        if (mMiner!!.gen != null) {
+                            settingBalances(mMiner!!.gen!!)
+                            if (mMiner!!.calc != null) {
+                                settingEarnings(mMiner!!.calc!!)
+                            }
                         }
 
                     }

@@ -18,6 +18,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.app_bar_main.*
 import ru.wasiliysoft.zcashnanopoolorg.App
 import ru.wasiliysoft.zcashnanopoolorg.Frafment.GeneralFragment
+import ru.wasiliysoft.zcashnanopoolorg.Prefs
 import ru.wasiliysoft.zcashnanopoolorg.R
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     internal val MENU_ADD_MINER = 1
     internal val MENU_SHARE = 3
     internal val MENU_CONTACT = 5
-
+    private lateinit var pref: Prefs
     private lateinit var mDemoCollectionPagerAdapter: DemoCollectionPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
         settingNavigationView(navigationView.menu)
 
-        fm = supportFragmentManager
+        pref = Prefs(this.applicationContext)
         // проверка списка майнеров
         if (App.getMiners().read().size == 0) {
             // майнеров нет
@@ -60,9 +61,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             updateTitle(position)
                         }
                     })
-            pager.offscreenPageLimit = 0
+            pager.currentItem = pref.savedPageId
             updateTitle(pager.currentItem)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pref.savedPageId = pager.currentItem
     }
 
     fun updateTitle(minerId: Int) {

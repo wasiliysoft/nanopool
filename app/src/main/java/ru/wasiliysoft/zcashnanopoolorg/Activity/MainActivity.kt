@@ -72,11 +72,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         override fun onPageSelected(position: Int) {
                             // When swiping between pages, select the
                             // corresponding tab.
-                            supportActionBar!!.title = App.getMiners().read()[position].name
-                            supportActionBar!!.subtitle = App.getMiners().read()[position].ticker
+                            updateTitle(position)
                         }
                     })
+            updateTitle(pager.currentItem)
         }
+    }
+
+    fun updateTitle(minerId: Int) {
+        supportActionBar!!.title = App.getMiners().read()[minerId].name
+        supportActionBar!!.subtitle = App.getMiners().read()[minerId].ticker
     }
 
     class DemoCollectionPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

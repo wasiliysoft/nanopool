@@ -20,7 +20,7 @@ class npWorker(ctx: Context, param: WorkerParameters) : Worker(ctx, param) {
 
             if (!generalData.isSuccessful || generalData.body().data == null) {
                 Log.e(TAG, "loading: FAILURE")
-                return ListenableWorker.Result.FAILURE
+                return ListenableWorker.Result.failure()
             }
             miner.gen = generalData.body().data
             val calcData = App.getApi().getCalcCoin(ticker, generalData.body().data.avgHashrate.h6unRound).execute()
@@ -28,14 +28,12 @@ class npWorker(ctx: Context, param: WorkerParameters) : Worker(ctx, param) {
             App.getMiners().read()[minerId] = miner
 
             val data = Data.Builder().putInt(INPUT_MINER_ID, minerId).build()
-            outputData = data
-
-            return ListenableWorker.Result.SUCCESS
+            return ListenableWorker.Result.success(data)
         } catch (e: Exception) {
             e.printStackTrace()
         }
         Log.e(TAG, "loading: FAILURE")
-        return ListenableWorker.Result.FAILURE
+        return ListenableWorker.Result.failure()
     }
 
 

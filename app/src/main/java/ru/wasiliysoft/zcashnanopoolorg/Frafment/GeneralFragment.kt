@@ -9,9 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.work.State
+import androidx.work.WorkInfo
+
 import androidx.work.WorkManager
-import androidx.work.WorkStatus
+
 import kotlinx.android.synthetic.main.fragment_general.*
 import ru.wasiliysoft.zcashnanopoolorg.App
 import ru.wasiliysoft.zcashnanopoolorg.Model.Miner
@@ -37,12 +38,12 @@ class GeneralFragment : Fragment() {
         llWorkers.removeAllViews()
 
         val worker1 = npWorker.newInstance(minerId)
-        WorkManager.getInstance().getStatusByIdLiveData(worker1.id).observe(this, Observer<WorkStatus> { worker ->
+        WorkManager.getInstance().getWorkInfoByIdLiveData(worker1.id).observe(this, Observer<WorkInfo> { worker ->
             if (worker != null) {
                 Log.d(TAG_WORKER, worker.state.toString())
                 when (worker.state) {
-                    State.RUNNING -> swiperefresh.isRefreshing = true
-                    State.SUCCEEDED -> {
+                    WorkInfo.State.RUNNING -> swiperefresh.isRefreshing = true
+                    WorkInfo.State.SUCCEEDED -> {
                         swiperefresh.isRefreshing = false
                         mMiner = App.getMiners().read()[minerId]
 
@@ -54,7 +55,7 @@ class GeneralFragment : Fragment() {
                             }
                         }
                     }
-                    State.FAILED -> {
+                    WorkInfo.State.FAILED -> {
                         swiperefresh.isRefreshing = false
                         //todo
                         // Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()

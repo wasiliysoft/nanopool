@@ -12,6 +12,7 @@
         <EditText
             android:id="@+id/minerName"
             android:layout_width="match_parent"
+            android:inputType=""
             android:layout_height="wrap_content"
             android:hint="@string/minerLabelHint" />
 
@@ -24,6 +25,7 @@
             <EditText
                 android:id="@+id/minerUrlAddress"
                 android:layout_width="0dp"
+                android:inputType=""
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/minerUrlAddressHint" />

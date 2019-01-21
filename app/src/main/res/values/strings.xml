@@ -15,7 +15,7 @@
     <string name="error_loading_data">Error loading data</string>
     <string name="share_app">Share app</string>
     <string name="feedback">Contact</string>
-    <string name="minerUrlAddressHint">Entert or scan URL to  your nanopool account</string>
+    <string name="minerUrlAddressHint">Enter or scan URL to  your nanopool account</string>
     <string name="scan_url_address_in_qr_code" translatable="false">QR</string>
 
 

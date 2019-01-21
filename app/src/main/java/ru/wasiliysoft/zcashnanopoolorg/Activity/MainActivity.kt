@@ -1,6 +1,5 @@
 package ru.wasiliysoft.zcashnanopoolorg.Activity
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -84,15 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Показывает диалог добавления майнера
      */
     internal fun showDialogAddMiner() {
-        startActivityForResult(Intent(this, AddMinerActivity::class.java), REQUEST_CODE_ADD_MINER)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_ADD_MINER && resultCode == Activity.RESULT_OK) {
-            finish()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+        startActivity(Intent(this, AddMinerActivity::class.java))
     }
 
     /**
@@ -155,11 +146,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
-
-    companion object {
-
-        private val REQUEST_CODE_ADD_MINER = 1
-
-    }
-
 }

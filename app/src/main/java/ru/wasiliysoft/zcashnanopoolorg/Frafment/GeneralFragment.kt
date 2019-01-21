@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.work.State
 import androidx.work.WorkManager
 import androidx.work.WorkStatus
@@ -48,11 +49,11 @@ class GeneralFragment : Fragment() {
 
                         if (mMiner!!.gen != null) {
                             settingBalances(mMiner!!.gen!!)
+                            settingWorkers(mMiner!!.gen!!)
                             if (mMiner!!.calc != null) {
                                 settingEarnings(mMiner!!.calc!!)
                             }
                         }
-
                     }
                     State.FAILED -> {
                         swiperefresh.isRefreshing = false
@@ -68,13 +69,8 @@ class GeneralFragment : Fragment() {
         WorkManager.getInstance().enqueue(worker1)
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        val v = inflater.inflate(R.layout.fragment_general, parent, false)
-
-        return v
+    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_general, parent, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,31 +137,42 @@ class GeneralFragment : Fragment() {
     internal fun settingWorkers(data: NpGeneral.Data) {
         llWorkers!!.removeAllViews()
         val mListWorkers = data.workers
-        for (w in mListWorkers) {
-            val view = ltInflater!!.inflate(R.layout.worker, null, false)
-
-            (view.findViewById<View>(R.id.tvWorker) as TextView).text = w.id
-
-            (view.findViewById<View>(R.id.tvCurH) as TextView).text = StringBuilder()
-                    .append("[ Current Hashrate  ")
-                    .append(w.hashrate)
-                    .append(" ]")
-            (view.findViewById<View>(R.id.tvAVGH6) as TextView).text = StringBuilder()
-                    .append("[ AVG (6h) Hashrate ")
-                    .append(w.h6)
-                    .append(" ]")
-
-            val diffMinutes = (System.currentTimeMillis() / 1000 - w.lastshare!!) / 60
-            val hours = diffMinutes / 60
-            val minutes = diffMinutes % 60
-            (view.findViewById<View>(R.id.tvLastShare) as TextView).text = StringBuilder()
-                    .append("[ last share ")
-                    .append(hours)
-                    .append("h. ")
-                    .append(minutes)
-                    .append("min. ago ]")
-            llWorkers!!.addView(view)
+        var wCount = mListWorkers.size - 1
+        val workersLimit = 20
+        if (wCount > workersLimit) {
+            Toast.makeText(activity, "Sorry, max $workersLimit workers showing", Toast.LENGTH_LONG).show()
+            wCount = workersLimit - 1
         }
+        if (wCount != 0) {
+            var w: NpGeneral.Worker
+            for (i in 0..wCount) {
+                w = mListWorkers[i]
+                val view = ltInflater.inflate(R.layout.worker, null, false)
+
+                (view.findViewById<View>(R.id.tvWorker) as TextView).text = w.id
+
+                (view.findViewById<View>(R.id.tvCurH) as TextView).text = StringBuilder()
+                        .append("[ Current Hashrate  ")
+                        .append(w.hashrate)
+                        .append(" ]")
+                (view.findViewById<View>(R.id.tvAVGH6) as TextView).text = StringBuilder()
+                        .append("[ AVG (6h) Hashrate ")
+                        .append(w.h6)
+                        .append(" ]")
+
+                val diffMinutes = (System.currentTimeMillis() / 1000 - w.lastshare!!) / 60
+                val hours = diffMinutes / 60
+                val minutes = diffMinutes % 60
+                (view.findViewById<View>(R.id.tvLastShare) as TextView).text = StringBuilder()
+                        .append("[ last share ")
+                        .append(hours)
+                        .append("h. ")
+                        .append(minutes)
+                        .append("min. ago ]")
+                llWorkers!!.addView(view)
+            }
+        }
+
     }
 
 

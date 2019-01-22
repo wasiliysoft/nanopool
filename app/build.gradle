@@ -20,6 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
 //        multiDexEnabled true
+        resConfigs "en","ru"
     }
     buildTypes {
         debug {
@@ -29,6 +30,7 @@ android {
         release {
             signingConfig signingConfigs.config
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

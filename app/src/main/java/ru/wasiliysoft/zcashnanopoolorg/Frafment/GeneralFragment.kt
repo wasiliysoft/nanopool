@@ -179,7 +179,7 @@ class GeneralFragment : Fragment() {
                 h6 = w.h6
 
                 val tvWorker: TextView = view.findViewById<View>(R.id.tvWorker) as TextView
-                tvWorker.text = "[$i] " + w.id
+                tvWorker.text = "[" + (i + 1) + "] " + w.id
                 if (diffMinutes >= 20) {
                     tvWorker.setTextColor(resources.getColor(R.color.offlineWorker))
                 }

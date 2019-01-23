@@ -20,46 +20,57 @@ import ru.wasiliysoft.zcashnanopoolorg.R
 import ru.wasiliysoft.zcashnanopoolorg.npWorker
 
 class GeneralFragment : Fragment() {
-    private var mMiner: Miner? = null
     private var minerId: Int = 0
     private lateinit var ltInflater: LayoutInflater
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         minerId = arguments!!.getInt(BUNDLE_MINER_ID)
-        mMiner = App.getMiners().read()[minerId]
     }
 
-    internal fun Refresh() {
-        tlAvgHashrate.removeAllViews()
-        tlCalc.removeAllViews()
-        llWorkers.removeAllViews()
+    fun resetViews() {
+        lvBalances.visibility = View.GONE
 
+        lvCurHashRate.visibility = View.GONE
+
+        lvAvgHashrate.visibility = View.GONE
+        lvAvgHashrate.removeAllViews()
+
+        tlCalc.visibility = View.GONE
+        tlCalc.removeAllViews()
+
+        lvWorkers.visibility = View.GONE
+        lvWorkers.removeAllViews()
+    }
+
+    fun settingsViews(ninew: Miner) {
+        if (ninew.gen != null) {
+            settingGeneral(ninew.gen!!)
+            if (ninew.calc != null) {
+                settingCalc(ninew.calc!!)
+            }
+        }
+    }
+
+    fun Refresh() {
         val worker1 = npWorker.newInstance(minerId)
         WorkManager.getInstance().getWorkInfoByIdLiveData(worker1.id).observe(this, Observer<WorkInfo> { worker ->
             if (worker != null) {
                 Log.d(TAG_WORKER, worker.state.toString())
                 when (worker.state) {
-                    WorkInfo.State.RUNNING -> swiperefresh.isRefreshing = true
+                    WorkInfo.State.RUNNING -> {
+                        swiperefresh.isRefreshing = true
+                        resetViews()
+                    }
                     WorkInfo.State.SUCCEEDED -> {
+                        tvFailedLoadData.visibility = View.GONE
                         swiperefresh.isRefreshing = false
-                        mMiner = App.getMiners().read()[minerId]
-
-                        if (mMiner!!.gen != null) {
-                            settingBalances(mMiner!!.gen!!)
-                            settingWorkers(mMiner!!.gen!!)
-                            if (mMiner!!.calc != null) {
-                                settingEarnings(mMiner!!.calc!!)
-                            }
-                        }
+                        settingsViews(App.getMiners().read()[minerId])
                     }
                     WorkInfo.State.FAILED -> {
+                        tvFailedLoadData.visibility = View.VISIBLE
                         swiperefresh.isRefreshing = false
-                        //todo
-                        // Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
-                    }
-                    else -> {
-                        //todo
+                        resetViews()
                     }
                 }
             }
@@ -78,22 +89,29 @@ class GeneralFragment : Fragment() {
         Refresh()
     }
 
-    internal fun settingBalances(data: NpGeneral.Data) {
+    fun settingGeneral(data: NpGeneral.Data) {
         tvBalance!!.text = data.balance
         tvUnconfirmedBalance!!.text = data.unconfirmedBalance
+        lvBalances.visibility = View.VISIBLE
+
         tvCurH!!.text = data.hashrate
+        lvCurHashRate.visibility = View.VISIBLE
+
         val h = data.avgHashrate
-        tlAvgHashrate.removeAllViews()
-        tlAvgHashrate.addView(getViewAVGHashRate(h.h1, "1 hour"))
-        tlAvgHashrate.addView(getViewAVGHashRate(h.h3, "3 hour"))
-        tlAvgHashrate.addView(getViewAVGHashRate(h.h6, "6 hour"))
-        tlAvgHashrate.addView(getViewAVGHashRate(h.h12, "12 hour"))
-        tlAvgHashrate.addView(getViewAVGHashRate(h.h24, "24 hour"))
+
+        lvAvgHashrate.addView(getViewAVGHashRate(h.h1, "01 hour"))
+        lvAvgHashrate.addView(getViewAVGHashRate(h.h3, "03 hour"))
+        lvAvgHashrate.addView(getViewAVGHashRate(h.h6, "06 hour"))
+        lvAvgHashrate.addView(getViewAVGHashRate(h.h12, "12 hour"))
+        lvAvgHashrate.addView(getViewAVGHashRate(h.h24, "24 hour"))
+        lvAvgHashrate.visibility = View.VISIBLE
+
+        settingWorkers(data)
     }
 
 
-    internal fun getViewAVGHashRate(hashrate: String, period: String): View {
-        val viewCalc = ltInflater!!.inflate(R.layout.avg_data, null, false)
+    fun getViewAVGHashRate(hashrate: String, period: String): View {
+        val viewCalc = ltInflater.inflate(R.layout.avg_data, null, false)
         //                Period
         val c1 = viewCalc.findViewById<TextView>(R.id.tvCol1)
         c1.text = period
@@ -103,17 +121,17 @@ class GeneralFragment : Fragment() {
         return viewCalc
     }
 
-    internal fun settingEarnings(data: NpCalc.Data) {
-        tlCalc!!.removeAllViews()
-        tlCalc!!.addView(ltInflater.inflate(R.layout.calc_data_header, null, false))
-        tlCalc!!.addView(getViewEarnings(data.day))
-        tlCalc!!.addView(getViewEarnings(data.week))
-        tlCalc!!.addView(getViewEarnings(data.month))
+    fun settingCalc(data: NpCalc.Data) {
+        tlCalc.addView(ltInflater.inflate(R.layout.calc_data_header, null, false))
+        tlCalc.addView(getViewEarnings(data.day))
+        tlCalc.addView(getViewEarnings(data.week))
+        tlCalc.addView(getViewEarnings(data.month))
+        tlCalc.visibility = View.VISIBLE
     }
 
-    internal fun getViewEarnings(o: NpCalc.Earnings): View {
+    fun getViewEarnings(o: NpCalc.Earnings): View {
 
-        val viewCalc = ltInflater!!.inflate(R.layout.calc_data, null, false)
+        val viewCalc = ltInflater.inflate(R.layout.calc_data, null, false)
         //                Period
         val c1 = viewCalc.findViewById<TextView>(R.id.tvCol1)
         c1.text = o.period
@@ -132,11 +150,10 @@ class GeneralFragment : Fragment() {
         return viewCalc
     }
 
-    internal fun settingWorkers(data: NpGeneral.Data) {
-        llWorkers!!.removeAllViews()
+    fun settingWorkers(data: NpGeneral.Data) {
         val mListWorkers = data.workers
         var wCount = mListWorkers.size - 1
-        val workersLimit = 20
+        val workersLimit = 100
         if (wCount > workersLimit) {
             limitWorkerNotify.text = "Sorry, max $workersLimit workers showing"
             limitWorkerNotify.visibility = View.VISIBLE
@@ -146,34 +163,33 @@ class GeneralFragment : Fragment() {
         }
         if (wCount != 0) {
             var w: NpGeneral.Worker
+            var diffMinutes: Long = 0
+            var hours: Long = 0
+            var minutes: Long = 0
+            var hashrate: String
+            var h6: String
             for (i in 0..wCount) {
                 w = mListWorkers[i]
                 val view = ltInflater.inflate(R.layout.worker, null, false)
 
-                (view.findViewById<View>(R.id.tvWorker) as TextView).text = w.id
+                diffMinutes = (System.currentTimeMillis() / 1000 - w.lastshare!!) / 60
+                hours = diffMinutes / 60
+                minutes = diffMinutes % 60
+                hashrate = w.hashrate
+                h6 = w.h6
 
-                (view.findViewById<View>(R.id.tvCurH) as TextView).text = StringBuilder()
-                        .append("[ Current Hashrate  ")
-                        .append(w.hashrate)
-                        .append(" ]")
-                (view.findViewById<View>(R.id.tvAVGH6) as TextView).text = StringBuilder()
-                        .append("[ AVG (6h) Hashrate ")
-                        .append(w.h6)
-                        .append(" ]")
-
-                val diffMinutes = (System.currentTimeMillis() / 1000 - w.lastshare!!) / 60
-                val hours = diffMinutes / 60
-                val minutes = diffMinutes % 60
-                (view.findViewById<View>(R.id.tvLastShare) as TextView).text = StringBuilder()
-                        .append("[ last share ")
-                        .append(hours)
-                        .append("h. ")
-                        .append(minutes)
-                        .append("min. ago ]")
-                llWorkers!!.addView(view)
+                val tvWorker: TextView = view.findViewById<View>(R.id.tvWorker) as TextView
+                tvWorker.text = "[$i] " + w.id
+                if (diffMinutes >= 20) {
+                    tvWorker.setTextColor(resources.getColor(R.color.offlineWorker))
+                }
+                (view.findViewById<View>(R.id.tvCurH) as TextView).text = "[ Current Hashrate  $hashrate ]"
+                (view.findViewById<View>(R.id.tvAVGH6) as TextView).text = "[ AVG (6h) Hashrate $h6 ]"
+                (view.findViewById<View>(R.id.tvLastShare) as TextView).text = "[ last share $hours h. $minutes min. ago ]"
+                lvWorkers.addView(view)
             }
         }
-
+        lvWorkers.visibility = View.VISIBLE
     }
 
 

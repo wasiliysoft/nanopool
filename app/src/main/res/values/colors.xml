@@ -3,4 +3,5 @@
     <color name="primaryColor">#90a4ae</color>
     <color name="primaryLightColor">#c1d5e0</color>
     <color name="primaryDarkColor">#62757f</color>
+    <color name="offlineWorker">#ffcc0000</color>
 </resources>

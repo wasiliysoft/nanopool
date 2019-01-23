@@ -16,6 +16,6 @@
     <string name="default_miner_label">My miner</string>
     <string name="share_app">Share app</string>
     <string name="feedback">Contact</string>
-
+    <string name="install_new_app">Install new version</string>
 
 </resources>

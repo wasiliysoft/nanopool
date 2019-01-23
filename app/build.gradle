@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'zecnanopool'
             keyPassword 'WJi7tedM94'
-            storeFile file('/home/wasliysoft/StudioProjects/key_store.jks')
+            storeFile file('C:/AndroidStudio/workspace/key_store.jks')
             storePassword '`x<!n1gcwm'
         }
     }
@@ -15,8 +15,8 @@ android {
         applicationId "ru.wasiliysoft.nanopoolorg_free"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 9
-        versionName "1.0:" + versionCode
+        versionCode 10
+        versionName "1.0:10 migration"
 //        multiDexEnabled true
     }
     buildTypes {

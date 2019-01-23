@@ -1,5 +1,6 @@
 package ru.wasiliysoft.zcashnanopoolorg.Activity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -41,6 +43,7 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
         }
         ((Button) findViewById(R.id.bAddMiner)).setOnClickListener(this);
         ((Button) findViewById(R.id.qrBtn)).setOnClickListener(this);
+        ((TextView) findViewById(R.id.tvInstallNew)).setOnClickListener(this);
     }
 
     @Override
@@ -68,6 +71,14 @@ public class AddMinerActivity extends AppCompatActivity implements View.OnClickL
                 IntentIntegrator integrator = new IntentIntegrator(this);
                 Intent i = integrator.createScanIntent();
                 startActivityForResult(i, IntentIntegrator.REQUEST_CODE);
+                return;
+            case R.id.tvInstallNew:
+                String appPackageName = "ru.wasiliysoft.nanopoolorg_free";// getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
                 return;
         }
     }

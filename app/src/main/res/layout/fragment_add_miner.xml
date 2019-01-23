@@ -1,13 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvInstallNew"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:color/holo_green_dark"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/install_new_app"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/minerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:hint="@string/minerLabelHint"
         android:text="@string/default_miner_label" />
 
@@ -16,6 +27,7 @@
         android:id="@+id/minerAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:hint="@string/minerAddressHint" />
 
 
@@ -23,11 +35,15 @@
         android:id="@+id/qrBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="@string/scan_url_address_in_qr_code" />
 
     <Button
         android:id="@+id/bAddMiner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="@string/add_miner" />
+
+
 </LinearLayout>

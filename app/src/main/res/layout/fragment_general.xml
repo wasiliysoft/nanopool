@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="ScrollViewCount">
@@ -14,6 +14,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvInstallNew"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@android:color/holo_green_dark"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/install_new_app"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
 
             <TextView
                 style="@style/LargeText"
@@ -38,10 +49,10 @@
 
                     <TextView
                         android:id="@+id/tvBalance"
-                        android:textStyle="bold"
                         style="@style/MediumText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -58,9 +69,9 @@
                     <TextView
                         android:id="@+id/tvUnconfirmedBalance"
                         style="@style/MediumText"
-                        android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 
@@ -88,9 +99,9 @@
                     <TextView
                         android:id="@+id/tvCurH"
                         style="@style/MediumText"
-                        android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
 

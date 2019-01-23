@@ -12,4 +12,5 @@
     <string name="default_miner_label">Мой майнер</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="feedback">Обратная связь</string>
+    <string name="install_new_app">Установите новую версию</string>
 </resources>

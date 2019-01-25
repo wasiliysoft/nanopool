@@ -118,9 +118,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_delete_miner) {
-            App.getMiners().delete(pager.currentItem)
-            finish()
-            startActivity(Intent(this, MainActivity::class.java))
+            try {
+                App.getMiners().delete(pager.currentItem)
+            } catch (e: IndexOutOfBoundsException) {
+                e.printStackTrace()
+            }
+            val i = Intent(this, MainActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(i)
             return true
         }
         return super.onOptionsItemSelected(item)

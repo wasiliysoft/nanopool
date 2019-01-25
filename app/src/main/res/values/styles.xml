@@ -4,9 +4,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/primaryLightColor</item>
+        <item name="colorAccent">@color/primaryDarkColor</item>
 
     </style>
 
@@ -29,7 +30,6 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">2dp</item>
     </style>
-
 
 
     <style name="AppTheme.NoActionBar">

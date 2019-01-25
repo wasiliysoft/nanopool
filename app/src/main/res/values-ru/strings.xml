@@ -2,14 +2,14 @@
 <resources>
     <string name="updating">обновление…</string>
     <string name="action_delete_miner">Удалить</string>
-    <string name="minerLabelHint">Подпись</string>
-    <string name="minerAddressHint">аккаунт nanopool</string>
+    <string name="minerUrlAddressHint">Введите или отсканируйте URL на ваш аккаунт nanopool</string>
     <string name="add_miner">Добавить майнер</string>
     <string name="barcode_error">"Ошибка чтения QR-кода: %1$s"</string>
-    <string name="unsupported_url">Пожалуйста отсканируйте URL адрес аккаунта для </string>
+    <string name="unsupported_url">Пожалуйста отсканируйте URL адрес аккаунта для nanopool.org</string>
     <string name="error_loading_data">Ошибка загрузки данных</string>
-    <string name="scan_url_address_in_qr_code">Считать URL-адрес с QR-кода</string>
-    <string name="default_miner_label">Мой майнер</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="feedback">Обратная связь</string>
+    <string name="minerLabelHint">Ввдите имя майнера</string>
+    <string name="toast_enter_label">Введите имя майнера</string>
+    <string name="toast_enter_url">Введите корректный URL на аккаунт nanopool</string>
 </resources>

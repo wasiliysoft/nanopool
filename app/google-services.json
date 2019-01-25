@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:349243242565:android:4c6f16cbc5ea303a",
+        "mobilesdk_app_id": "1:349243242565:android:5b50085f8e7b620b",
         "android_client_info": {
-          "package_name": "ru.wasiliysoft.nanopoolorg_free.zec"
+          "package_name": "ru.wasiliysoft.nanopoolorg_free"
         }
       },
       "oauth_client": [
@@ -73,6 +73,37 @@
         "mobilesdk_app_id": "1:349243242565:android:13f95a3dd32d1546",
         "android_client_info": {
           "package_name": "ru.wasiliysoft.nanopoolorg_free.xmr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349243242565-c1hkrihvlkbmcrre9e1gre5pnf5dumu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSRLcCFd6bDmCXZcLfB2j-U_17dUAhvrw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349243242565:android:4c6f16cbc5ea303a",
+        "android_client_info": {
+          "package_name": "ru.wasiliysoft.nanopoolorg_free.zec"
         }
       },
       "oauth_client": [

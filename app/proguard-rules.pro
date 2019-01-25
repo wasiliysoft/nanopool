@@ -19,6 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontobfuscate
 #### -- Picasso --
  -dontwarn com.squareup.picasso.**
 
@@ -31,6 +32,7 @@
  -dontwarn org.apache.commons.logging.**
 
 -dontwarn retrofit2.Platform$Java8
- -ignorewarnings
- -keep class * {
-     public private *;}
+
+# -ignorewarnings
+# -keep class * {
+#     public private *;}

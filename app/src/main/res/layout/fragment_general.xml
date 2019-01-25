@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="ScrollViewCount">
@@ -16,20 +17,38 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvFailedLoadData"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@android:color/holo_red_dark"
+                android:gravity="center"
+                android:text="Failed loading data"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView"
                 style="@style/LargeText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Balances" />
+                android:text="Balances"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/lvBalances"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView4"
                         style="@style/MediumText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -37,80 +56,91 @@
                         android:text="Balance" />
 
                     <TextView
-                        android:id="@+id/tvBalance"
-                        android:textStyle="bold"
-                        style="@style/MediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
+                        android:id="@+id/textView3"
                         style="@style/MediumText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Unconfirmed Balance" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        style="@style/MediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvUnconfirmedBalance"
                         style="@style/MediumText"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-            </TableLayout>
-
-            <TextView
-                style="@style/LargeText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Current Hashrate" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/MediumText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Hashrate" />
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvCurH"
-                        style="@style/MediumText"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
-            </TableLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <TextView
+                android:id="@+id/textView5"
                 style="@style/LargeText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Average Hashrate" />
-
-            <TableLayout
-                android:id="@+id/tlAvgHashrate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="Current Hashrate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            </TableLayout>
+            <LinearLayout
+                android:id="@+id/lvCurHashRate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/textView6"
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Hashrate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <TextView
+                    android:id="@+id/tvCurH"
+                    style="@style/MediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+                    app:layout_constraintStart_toStartOf="@+id/tvUnconfirmedBalance" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/LargeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average Hashrate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <LinearLayout
+                android:id="@+id/lvAvgHashrate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
 
             <TextView
                 style="@style/LargeText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Approximated earnings" />
 
@@ -125,30 +155,25 @@
             </TableLayout>
 
             <TextView
-                style="@style/MediumText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="EXPERIMENTAL. Calculated based on average block time, average difficulty, difficulty change tendency and your average hashrate for last 6 hours." />
-
-            <LinearLayout
-                android:id="@+id/llAVG_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-            <TextView
                 style="@style/LargeText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Workers" />
 
             <LinearLayout
-                android:id="@+id/llWorkers"
+                android:id="@+id/lvWorkers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
+            <TextView
+                android:id="@+id/limitWorkerNotify"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
